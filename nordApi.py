@@ -31,10 +31,8 @@ class NordApi(object):
         return server_list
 
 
-
-
-nordApi = NordApi()
-apiData = nordApi.get_api_data()
-countries = nordApi.get_country_list(apiData)
-for country in countries:
-    print(country)
+# nordApi = NordApi()
+# apiData = nordApi.get_api_data()
+# servers = nordApi.get_servers_by_country(apiData, "United States")
+# for server in servers:
+#     print(server)
