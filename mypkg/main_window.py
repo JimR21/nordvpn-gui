@@ -1,15 +1,19 @@
 import sys
-from collections import namedtuple
 
 from PyQt5 import QtWidgets
 
-from nordApi import NordApi
-from nordVpnGui import Ui_MainWindow
+from mypkg.login_view import LoginUi
+from mypkg.main_view import MainUi
+from mypkg.nord_api import NordApi
 
-ServerInfo = namedtuple('ServerInfo', 'name, country, domain, load, categories')
+
+class LoginWindow(QtWidgets.QMainWindow, LoginUi):
+    def __init__(self, *args, obj=None, **kwargs):
+        super(LoginWindow, self).__init__(*args, **kwargs)
+        self.setupUi(self)
 
 
-class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+class MainWindow(QtWidgets.QMainWindow, MainUi):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
@@ -52,6 +56,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 app = QtWidgets.QApplication(sys.argv)
 
-window = MainWindow()
+window = LoginWindow()
 window.show()
 app.exec()
