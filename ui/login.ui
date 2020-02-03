@@ -10,6 +10,18 @@
     <height>1048</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1071</width>
+    <height>1048</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1071</width>
+    <height>1048</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -95,6 +107,18 @@ color: rgb(243, 243, 243);</string>
       <width>1071</width>
       <height>1051</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>1071</width>
+      <height>1051</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1071</width>
+      <height>1051</height>
+     </size>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/nord/nordvpn_login_background.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

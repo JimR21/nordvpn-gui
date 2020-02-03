@@ -30,6 +30,7 @@ class NordApi(object):
                 server_list.append(server)
         return server_list
 
+
 # nordApi = NordApi()
 # apiData = nordApi.get_api_data()
 # print(apiData)
