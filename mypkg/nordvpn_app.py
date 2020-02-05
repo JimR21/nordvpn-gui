@@ -11,6 +11,14 @@ cli = LinuxCli()
 api = NordApi()
 
 
+def format_server_list_item(server):
+    name = server['name']
+    domain = server['domain']
+    load = server['load']
+
+    return name + '\n' + 'Load: ' + str(load) + '%\n' + 'Domain: ' + domain
+
+
 class MainWindow(QtWidgets.QMainWindow, MainUi):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
@@ -39,15 +47,8 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
             server_list = api.get_servers_by_country(self.data, current_country)
         formatted_server_list = []
         for server in server_list:
-            formatted_server_list.append(self.format_server_list_item(server))
+            formatted_server_list.append(format_server_list_item(server))
         self.server_list.addItems(formatted_server_list)
-
-    def format_server_list_item(self, server):
-        name = server['name']
-        domain = server['domain']
-        load = server['load']
-
-        return name + '\n' + 'Load: ' + str(load) + '%\n' + 'Domain: ' + domain
 
 
 class LoginWindow(QtWidgets.QMainWindow, LoginUi):
@@ -57,10 +58,26 @@ class LoginWindow(QtWidgets.QMainWindow, LoginUi):
         super(LoginWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
 
+        self.username_line.textChanged.connect(lambda: self.check_login_button())
+        self.password_line.textChanged.connect(lambda: self.check_login_button())
+        self.password_line.setEchoMode(2)
+        self.login_button.setDisabled(True)
         self.login_button.clicked.connect(lambda: self.login())
+        self.wrong_credentials_msg.setHidden(True)
 
     def login(self):
-        self.switch_window.emit()
+        if self.username_line.text() and self.password_line.text():
+            if cli.login(self.username_line.text(), self.password_line.text()):
+                self.switch_window.emit()
+                return
+
+        self.wrong_credentials_msg.setHidden(False)
+
+    def check_login_button(self):
+        if self.username_line.text() and self.password_line.text():
+            self.login_button.setEnabled(True)
+        else:
+            self.login_button.setDisabled(True)
 
 
 class Controller:
@@ -78,7 +95,7 @@ class Controller:
         self.window.show()
 
     def show_starting_window(self):
-        if cli.isUserLoggedIn():
+        if cli.is_user_logged_in():
             self.show_main()
         else:
             self.show_login()

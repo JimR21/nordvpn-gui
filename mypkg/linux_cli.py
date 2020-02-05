@@ -19,30 +19,30 @@ class Commands(enum.auto):
 
 class LinuxCli(object):
 
-    def getStatus(self, status_command):
-        output = self.runCommand(Commands.Status)
+    def get_status(self, status_command):
+        output = self.run_command(Commands.Status)
         lines = output.split('\n')
         for line in lines:
             if status_command in line:
                 return line.split(': ')[1]
 
-    def isUserLoggedIn(self):
-        output = self.runCommand(Commands.Login)
+    def is_user_logged_in(self):
+        output = self.run_command(Commands.Login)
         return 'You are already logged in' in output
 
     def login(self, username, password):
-        output = self.runCommand(Commands.Login + '-u ' + username + ' -p ' + password)
+        output = self.run_command(Commands.Login + ' -u ' + username + ' -p ' + password)
         return 'Welcome to NordVPN!' in output
 
     def logout(self):
-        output = self.runCommand(Commands.Logout)
+        output = self.run_command(Commands.Logout)
         return 'You are logged out' in output
 
-    def isUpdateAvailable(self):
-        output = self.runCommand(Commands.Status)
+    def is_update_available(self):
+        output = self.run_command(Commands.Status)
         return 'A new version of NordVPN is available!' in output
 
-    def runCommand(self, command):
+    def run_command(self, command):
         return os.popen(command).read()
 
 
