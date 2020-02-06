@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="nord">
+    <file>login.ui</file>
     <file>nordvpn_login_background.png</file>
   </qresource>
 </RCC>

@@ -67,10 +67,13 @@ class LoginWindow(QtWidgets.QMainWindow, LoginUi):
 
     def login(self):
         if self.username_line.text() and self.password_line.text():
+            self.login_button.setDisabled(True)
+            self.wrong_credentials_msg.setHidden(True)
+            self.repaint()
             if cli.login(self.username_line.text(), self.password_line.text()):
                 self.switch_window.emit()
                 return
-
+        self.login_button.setEnabled(True)
         self.wrong_credentials_msg.setHidden(False)
 
     def check_login_button(self):
