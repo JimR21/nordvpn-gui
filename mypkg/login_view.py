@@ -36,20 +36,22 @@ class LoginUi(object):
         self.username_label = QtWidgets.QLabel(self.centralwidget)
         self.username_label.setGeometry(QtCore.QRect(310, 580, 191, 17))
         self.username_label.setStyleSheet("background-color: rgba(81, 76, 76, 0);\n"
-                                          "            color: rgb(243, 243, 243);\n"
-                                          "            font: 57 15pt \"Ubuntu\";\n"
-                                          "        ")
+                                          "      color: rgb(243, 243, 243);\n"
+                                          "      font: 57 15pt \"Ubuntu\";\n"
+                                          "     ")
         self.username_label.setObjectName("username_label")
         self.password_label = QtWidgets.QLabel(self.centralwidget)
         self.password_label.setGeometry(QtCore.QRect(560, 580, 141, 17))
         self.password_label.setStyleSheet("color: rgb(243, 243, 243);\n"
-                                          "               font: 57 15pt \"Ubuntu\";\n"
-                                          "           ")
+                                          "      font: 57 15pt \"Ubuntu\";\n"
+                                          "     ")
         self.password_label.setObjectName("password_label")
         self.login_button = QtWidgets.QPushButton(self.centralwidget)
         self.login_button.setGeometry(QtCore.QRect(480, 670, 121, 41))
-        self.login_button.setStyleSheet("background-color: rgb(32, 74, 135);\n"
-                                        "color: rgb(243, 243, 243);")
+        self.login_button.setStyleSheet("background-color: rgb(70, 135, 255);\n"
+                                        " color: rgb(243, 243, 243);\n"
+                                        "    \n"
+                                        "font: 75 14pt \"Ubuntu\";")
         self.login_button.setDefault(True)
         self.login_button.setObjectName("login_button")
         self.background_label_image = QtWidgets.QLabel(self.centralwidget)
@@ -59,8 +61,8 @@ class LoginUi(object):
         self.wrong_credentials_msg = QtWidgets.QLabel(self.centralwidget)
         self.wrong_credentials_msg.setGeometry(QtCore.QRect(330, 730, 431, 16))
         self.wrong_credentials_msg.setStyleSheet("font: 57 13pt \"Ubuntu\";\n"
-                                                 "                        color: rgb(204, 0, 0);\n"
-                                                 "                    ")
+                                                 "      color: rgb(204, 0, 0);\n"
+                                                 "     ")
         self.wrong_credentials_msg.setObjectName("wrong_credentials_msg")
         self.background_label_image.raise_()
         self.username_line.raise_()

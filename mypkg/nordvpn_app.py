@@ -1,3 +1,4 @@
+import enum
 import sys
 
 from PyQt5 import QtWidgets, QtCore
@@ -9,6 +10,30 @@ from mypkg.nord_api import NordApi
 
 cli = LinuxCli()
 api = NordApi()
+
+
+class Status(enum.auto):
+    status = 'Status'
+    current_server = 'Current server'
+    country = 'Country'
+    city = 'City'
+    ip = 'Your new IP'
+    technology = 'Current technology'
+    protocol = 'Current protocol'
+    transfer = 'Transfer'
+    uptime = 'Uptime'
+
+
+class Account(enum.auto):
+    email = 'Email Address'
+    expiration = 'VPN Service'
+
+
+def get_specific_info_from_output(output, info):
+    lines = output.split('\n')
+    for line in lines:
+        if info in line:
+            return line.split(': ')[1]
 
 
 def format_server_list_item(server):
@@ -28,6 +53,16 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
         # initialize data
         self.get_data()
         self.populate_country_list()
+        self.populate_account_info()
+
+    def populate_account_info(self):
+        account_output = cli.get_account()
+        self.email_label.setText(get_specific_info_from_output(account_output, Account.email))
+        self.expires_label.setText(
+            get_specific_info_from_output(account_output, Account.expiration).split('(')[1].split(')')[0])
+
+    def connect(self):
+        selected_server = self.server_list.currentItem().text()
 
     def get_data(self):
         self.data = api.get_api_data()

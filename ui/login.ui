@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>nordvpnicon.png</normaloff>nordvpnicon.png
+       <normaloff>nordvpnicon.png</normaloff>nordvpnicon.png
    </iconset>
   </property>
   <property name="styleSheet">
@@ -121,11 +121,13 @@
       <height>41</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(32, 74, 135);
-      color: rgb(243, 243, 243);
-     </string>
-    </property>
+       <property name="styleSheet">
+           <string notr="true">background-color: rgb(70, 135, 255);
+               color: rgb(243, 243, 243);
+
+               font: 75 14pt &quot;Ubuntu&quot;;
+           </string>
+       </property>
     <property name="text">
      <string>Login</string>
     </property>

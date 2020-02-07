@@ -4,27 +4,18 @@ import os
 
 class Commands(enum.auto):
     Status = 'nordvpn status'
-    Status_status = 'Status'
-    Status_current_server = 'Current server'
-    Status_country = 'Country'
-    Status_city = 'City'
-    Status_ip = 'Your new IP'
-    Status_technology = 'Current technology'
-    Status_protocol = 'Current protocol'
-    Status_transfer = 'Transfer'
-    Status_uptime = 'Uptime'
     Login = 'nordvpn login'
     Logout = 'nordvpn logout'
+    Account = 'nordvpn account'
 
 
 class LinuxCli(object):
 
-    def get_status(self, status_command):
-        output = self.run_command(Commands.Status)
-        lines = output.split('\n')
-        for line in lines:
-            if status_command in line:
-                return line.split(': ')[1]
+    def get_status(self):
+        return self.run_command(Commands.Status)
+
+    def get_account(self):
+        return self.run_command(Commands.Account)
 
     def is_user_logged_in(self):
         output = self.run_command(Commands.Login)
