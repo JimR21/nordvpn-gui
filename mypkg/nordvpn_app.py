@@ -56,6 +56,7 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
         self.get_data()
         self.populate_country_list()
         self.populate_account_info()
+        self.populate_server_status()
 
         # buttons
         self.logout_button.clicked.connect(self.logout)
@@ -89,8 +90,16 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
             formatted_server_list.append(format_server_list_item(server))
         self.server_list.addItems(formatted_server_list)
 
-    def populate_connected_server(self):
-        self.connected_server.setText(self.server_list.currentItem().text())
+    def populate_server_status(self):
+        status_output = cli.get_status()
+        if 'Disconnected' in status_output:
+            self.connection_label.setText('Disconnected')
+            self.connected_server.setText('')
+            self.connection_color_status.setStyleSheet('background-color: rgb(204, 0, 0);')
+        else:
+            self.connection_label.setText('Connected')
+            self.connected_server.setText(get_specific_info_from_output(status_output, Status.current_server))
+            self.connection_color_status.setStyleSheet('background-color: rgb(78, 154, 6);')
 
     def logout(self):
         cli.logout()
@@ -98,13 +107,14 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
 
     def connect(self):
         if self.server_list.currentItem():
-            selected_server = get_specific_info_from_output(self.server_list.currentItem().text(), "Domain").split('.')[
-                0]
+            selected_server = get_specific_info_from_output(self.server_list.currentItem().
+                                                            text(), "Domain").split('.')[0]
             if cli.connect(selected_server):
-                self.populate_server_list()
+                self.populate_server_status()
 
     def disconnect_from_server(self):
         cli.disconnect()
+        self.populate_server_status()
 
 
 class LoginWindow(QtWidgets.QMainWindow, LoginUi):
