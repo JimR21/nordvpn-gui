@@ -7,6 +7,8 @@ class Commands(enum.auto):
     Login = 'nordvpn login'
     Logout = 'nordvpn logout'
     Account = 'nordvpn account'
+    Connect = 'nordvpn connect '
+    Disconnect = 'nordvpn disconnect'
 
 
 class LinuxCli(object):
@@ -32,6 +34,14 @@ class LinuxCli(object):
     def is_update_available(self):
         output = self.run_command(Commands.Status)
         return 'A new version of NordVPN is available!' in output
+
+    def connect(self, server):
+        output = self.run_command(Commands.Connect + server)
+        return 'You are connected to' in output
+
+    def disconnect(self):
+        output = self.run_command(Commands.Disconnect)
+        return 'You are disconnected from NordVPN' in output
 
     def run_command(self, command):
         return os.popen(command).read()

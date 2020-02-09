@@ -59,19 +59,14 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
 
         # buttons
         self.logout_button.clicked.connect(self.logout)
+        self.connect_button.clicked.connect(self.connect)
+        self.disconnect_button.clicked.connect(self.disconnect_from_server)
 
     def populate_account_info(self):
         account_output = cli.get_account()
         self.email_label.setText(get_specific_info_from_output(account_output, Account.email))
         self.expires_label.setText(
             get_specific_info_from_output(account_output, Account.expiration).split('(')[1].split(')')[0])
-
-    def logout(self):
-        cli.logout()
-        self.switch_window.emit()
-
-    def connect(self):
-        selected_server = self.server_list.currentItem().text()
 
     def get_data(self):
         self.data = api.get_api_data()
@@ -93,6 +88,23 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
         for server in server_list:
             formatted_server_list.append(format_server_list_item(server))
         self.server_list.addItems(formatted_server_list)
+
+    def populate_connected_server(self):
+        self.connected_server.setText(self.server_list.currentItem().text())
+
+    def logout(self):
+        cli.logout()
+        self.switch_window.emit()
+
+    def connect(self):
+        if self.server_list.currentItem():
+            selected_server = get_specific_info_from_output(self.server_list.currentItem().text(), "Domain").split('.')[
+                0]
+            if cli.connect(selected_server):
+                self.populate_server_list()
+
+    def disconnect_from_server(self):
+        cli.disconnect()
 
 
 class LoginWindow(QtWidgets.QMainWindow, LoginUi):

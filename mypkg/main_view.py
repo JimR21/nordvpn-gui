@@ -61,7 +61,7 @@ class MainUi(object):
         self.email_label.setText("")
         self.email_label.setObjectName("email_label")
         self.expires_label = QtWidgets.QLabel(self.frame)
-        self.expires_label.setGeometry(QtCore.QRect(740, 36, 101, 16))
+        self.expires_label.setGeometry(QtCore.QRect(740, 36, 161, 16))
         self.expires_label.setStyleSheet("font: 10pt \"Ubuntu\";\n"
                                          "color: rgb(136, 138, 133);")
         self.expires_label.setObjectName("expires_label")
@@ -87,7 +87,7 @@ class MainUi(object):
         self.logout_button.setText("")
         self.logout_button.setObjectName("logout_button")
         self.connected_server = QtWidgets.QLabel(self.frame)
-        self.connected_server.setGeometry(QtCore.QRect(380, 10, 161, 41))
+        self.connected_server.setGeometry(QtCore.QRect(360, 10, 271, 51))
         self.connected_server.setStyleSheet("font: 75 15pt \"Samanata\";")
         self.connected_server.setText("")
         self.connected_server.setObjectName("connected_server")
