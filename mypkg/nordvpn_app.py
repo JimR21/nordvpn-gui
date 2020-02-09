@@ -45,6 +45,8 @@ def format_server_list_item(server):
 
 
 class MainWindow(QtWidgets.QMainWindow, MainUi):
+    switch_window = QtCore.pyqtSignal()
+
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
@@ -55,11 +57,18 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
         self.populate_country_list()
         self.populate_account_info()
 
+        # buttons
+        self.logout_button.clicked.connect(self.logout)
+
     def populate_account_info(self):
         account_output = cli.get_account()
         self.email_label.setText(get_specific_info_from_output(account_output, Account.email))
         self.expires_label.setText(
             get_specific_info_from_output(account_output, Account.expiration).split('(')[1].split(')')[0])
+
+    def logout(self):
+        cli.logout()
+        self.switch_window.emit()
 
     def connect(self):
         selected_server = self.server_list.currentItem().text()
@@ -72,7 +81,7 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
 
     def populate_country_list(self):
         self.countries_list.addItems(api.get_country_list(self.data))
-        self.countries_list.itemClicked.connect(lambda: self.populate_server_list())
+        self.countries_list.itemClicked.connect(self.populate_server_list)
 
     def populate_server_list(self):
         self.server_list.clear()
@@ -93,11 +102,11 @@ class LoginWindow(QtWidgets.QMainWindow, LoginUi):
         super(LoginWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
 
-        self.username_line.textChanged.connect(lambda: self.check_login_button())
-        self.password_line.textChanged.connect(lambda: self.check_login_button())
+        self.username_line.textChanged.connect(self.check_login_button)
+        self.password_line.textChanged.connect(self.check_login_button)
         self.password_line.setEchoMode(2)
         self.login_button.setDisabled(True)
-        self.login_button.clicked.connect(lambda: self.login())
+        self.login_button.clicked.connect(self.login)
         self.wrong_credentials_msg.setHidden(True)
 
     def login(self):
@@ -121,15 +130,21 @@ class LoginWindow(QtWidgets.QMainWindow, LoginUi):
 class Controller:
 
     def __init__(self):
-        self.window = MainWindow()
-        self.login = LoginWindow()
+        self.login = None
+        self.window = None
 
     def show_login(self):
+        self.login = LoginWindow()
         self.login.switch_window.connect(self.show_main)
+        if self.window:
+            self.window.close()
         self.login.show()
 
     def show_main(self):
-        self.login.close()
+        self.window = MainWindow()
+        self.window.switch_window.connect(self.show_login)
+        if self.login:
+            self.login.close()
         self.window.show()
 
     def show_starting_window(self):

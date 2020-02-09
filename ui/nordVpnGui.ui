@@ -21,30 +21,30 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QListWidget" name="countries_list">
-    <property name="geometry">
-        <rect>
-            <x>10</x>
-            <y>70</y>
-            <width>231</width>
-            <height>501</height>
-        </rect>
-    </property>
+       <property name="geometry">
+           <rect>
+               <x>10</x>
+               <y>70</y>
+               <width>231</width>
+               <height>501</height>
+           </rect>
+       </property>
     <property name="styleSheet">
         <string notr="true">background-color: rgb(237, 239, 241);</string>
     </property>
    </widget>
    <widget class="QListWidget" name="server_list">
-    <property name="geometry">
-        <rect>
-            <x>240</x>
-            <y>70</y>
-            <width>731</width>
-            <height>501</height>
-        </rect>
-    </property>
-    <property name="styleSheet">
-        <string notr="true">background-color: rgb(237, 239, 241);</string>
-    </property>
+       <property name="geometry">
+           <rect>
+               <x>240</x>
+               <y>70</y>
+               <width>731</width>
+               <height>501</height>
+           </rect>
+       </property>
+       <property name="styleSheet">
+           <string notr="true">background-color: rgb(237, 239, 241);</string>
+       </property>
    </widget>
       <widget class="QToolButton" name="refresh_button">
           <property name="geometry">
