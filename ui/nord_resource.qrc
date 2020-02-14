@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="nord">
+      <file>nord-icon-152x152.png</file>
       <file>icons8-logout-rounded-up-50.png</file>
       <file>icons8-user-24.png</file>
       <file>nordvpnicon.png</file>

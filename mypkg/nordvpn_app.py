@@ -41,7 +41,10 @@ def format_server_list_item(server):
     domain = server['domain']
     load = server['load']
 
-    return name + '\n' + 'Load: ' + str(load) + '%\n' + 'Domain: ' + domain
+    return name + '\n' + 'Load: ' + str(
+        load) + '%\n' + 'Domain: ' + domain + '\n-------------------------------------------------------------------' \
+                                              '---------------------------------------------------------------------' \
+                                              '--------------------- '
 
 
 class MainWindow(QtWidgets.QMainWindow, MainUi):
@@ -54,14 +57,17 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
 
         # initialize data
         self.get_data()
-        self.populate_country_list()
         self.populate_account_info()
         self.populate_server_status()
+        self.populate_country_list()
+        self.populate_server_list()
 
         # buttons
         self.logout_button.clicked.connect(self.logout)
         self.connect_button.clicked.connect(self.connect)
         self.disconnect_button.clicked.connect(self.disconnect_from_server)
+        self.refresh_button.clicked.connect(self.refresh)
+        self.server_list.doubleClicked.connect(self.connect)
 
     def populate_account_info(self):
         account_output = cli.get_account()
@@ -74,17 +80,21 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
 
     def refresh(self):
         self.get_data()
+        self.populate_country_list()
+        self.populate_server_list()
 
     def populate_country_list(self):
+        self.countries_list.clear()
         self.countries_list.addItems(api.get_country_list(self.data))
         self.countries_list.itemClicked.connect(self.populate_server_list)
 
     def populate_server_list(self):
         self.server_list.clear()
-        current_country = self.countries_list.currentItem().text()
+        current_country = self.countries_list.currentItem()
         server_list = []
         if current_country is not None:
-            server_list = api.get_servers_by_country(self.data, current_country)
+            server_list = api.get_servers_by_country(self.data, current_country.text())
+        server_list.sort(key=lambda server: server['load'])
         formatted_server_list = []
         for server in server_list:
             formatted_server_list.append(format_server_list_item(server))
@@ -100,6 +110,7 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
             self.connection_label.setText('Connected')
             self.connected_server.setText(get_specific_info_from_output(status_output, Status.current_server))
             self.connection_color_status.setStyleSheet('background-color: rgb(78, 154, 6);')
+        self.update_button_status()
 
     def logout(self):
         cli.logout()
@@ -115,6 +126,14 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
     def disconnect_from_server(self):
         cli.disconnect()
         self.populate_server_status()
+
+    def update_button_status(self):
+        if self.connection_label.text() == 'Connected':
+            self.disconnect_button.setHidden(False)
+            self.disconnect_button.setEnabled(True)
+        else:
+            self.disconnect_button.setHidden(True)
+            self.disconnect_button.setDisabled(True)
 
 
 class LoginWindow(QtWidgets.QMainWindow, LoginUi):

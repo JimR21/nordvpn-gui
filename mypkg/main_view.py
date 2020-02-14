@@ -14,31 +14,39 @@ class MainUi(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(982, 648)
+        MainWindow.setMinimumSize(QtCore.QSize(982, 648))
+        MainWindow.setMaximumSize(QtCore.QSize(982, 648))
         MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
         MainWindow.setAnimated(True)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setMinimumSize(QtCore.QSize(982, 648))
+        self.centralwidget.setMaximumSize(QtCore.QSize(982, 648))
         self.centralwidget.setObjectName("centralwidget")
         self.countries_list = QtWidgets.QListWidget(self.centralwidget)
         self.countries_list.setGeometry(QtCore.QRect(10, 70, 231, 501))
-        self.countries_list.setStyleSheet("background-color: rgb(237, 239, 241);")
+        self.countries_list.setStyleSheet("background-color: rgb(237, 239, 241);\n"
+                                          "selection-background-color: rgb(70, 135, 255);")
         self.countries_list.setObjectName("countries_list")
         self.server_list = QtWidgets.QListWidget(self.centralwidget)
         self.server_list.setGeometry(QtCore.QRect(240, 70, 731, 501))
-        self.server_list.setStyleSheet("background-color: rgb(237, 239, 241);")
+        self.server_list.setStyleSheet("background-color: rgb(237, 239, 241);\n"
+                                       "selection-background-color: rgb(70, 135, 255);")
         self.server_list.setObjectName("server_list")
         self.refresh_button = QtWidgets.QToolButton(self.centralwidget)
         self.refresh_button.setGeometry(QtCore.QRect(930, 590, 41, 41))
         self.refresh_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.refresh_button.setStyleSheet("background-color: rgb(237, 239, 241);\n"
-                                          "font: 57 15pt \"Ubuntu\";")
+                                          "      font: 57 15pt \"Ubuntu\";\n"
+                                          "     ")
         self.refresh_button.setObjectName("refresh_button")
         self.connect_button = QtWidgets.QPushButton(self.centralwidget)
         self.connect_button.setGeometry(QtCore.QRect(820, 590, 91, 41))
         self.connect_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.connect_button.setMouseTracking(False)
         self.connect_button.setStyleSheet("background-color: rgb(70, 135, 255);\n"
-                                          "font: 57 14pt \"Ubuntu\";\n"
-                                          "color: rgb(255, 255, 255);")
+                                          "      font: 57 14pt \"Ubuntu\";\n"
+                                          "      color: rgb(255, 255, 255);\n"
+                                          "     ")
         self.connect_button.setObjectName("connect_button")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(10, 0, 961, 71))
@@ -46,14 +54,14 @@ class MainUi(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(30, 10, 61, 51))
+        self.label.setGeometry(QtCore.QRect(30, 10, 71, 61))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
         self.label.setSizeIncrement(QtCore.QSize(0, 0))
-        self.label.setStyleSheet("border-image: url(ui/nordvpnicon.png);")
+        self.label.setStyleSheet("border-image: url(ui/nord-icon-152x152.png);")
         self.label.setText("")
         self.label.setObjectName("label")
         self.email_label = QtWidgets.QLabel(self.frame)
@@ -63,7 +71,8 @@ class MainUi(object):
         self.expires_label = QtWidgets.QLabel(self.frame)
         self.expires_label.setGeometry(QtCore.QRect(740, 36, 161, 16))
         self.expires_label.setStyleSheet("font: 10pt \"Ubuntu\";\n"
-                                         "color: rgb(136, 138, 133);")
+                                         "       color: rgb(136, 138, 133);\n"
+                                         "      ")
         self.expires_label.setObjectName("expires_label")
         self.connection_label = QtWidgets.QLabel(self.frame)
         self.connection_label.setGeometry(QtCore.QRect(110, 20, 171, 31))
@@ -95,8 +104,9 @@ class MainUi(object):
         self.disconnect_button.setGeometry(QtCore.QRect(690, 590, 111, 41))
         self.disconnect_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.disconnect_button.setStyleSheet("background-color: rgb(237, 239, 241);\n"
-                                             "font: 57 14pt \"Ubuntu\";\n"
-                                             "color: rgb(191, 64, 64);")
+                                             "      font: 57 14pt \"Ubuntu\";\n"
+                                             "      color: rgb(191, 64, 64);\n"
+                                             "     ")
         self.disconnect_button.setObjectName("disconnect_button")
         self.frame.raise_()
         self.countries_list.raise_()
@@ -119,5 +129,5 @@ class MainUi(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.refresh_button.setText(_translate("MainWindow", "↺"))
         self.connect_button.setText(_translate("MainWindow", "Connect"))
-        self.expires_label.setText(_translate("MainWindow", "Expires on "))
+        self.expires_label.setText(_translate("MainWindow", "Expires on"))
         self.disconnect_button.setText(_translate("MainWindow", "Disconnect"))
