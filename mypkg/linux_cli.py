@@ -9,6 +9,7 @@ class Commands(enum.auto):
     Account = 'nordvpn account'
     Connect = 'nordvpn connect '
     Disconnect = 'nordvpn disconnect'
+    Settings = 'nordvpn settings'
 
 
 class LinuxCli(object):
@@ -45,6 +46,9 @@ class LinuxCli(object):
 
     def run_command(self, command):
         return os.popen(command).read()
+
+    def get_settings(self):
+        return self.run_command(Commands.Settings)
 
 
 # cli = LinuxCli()

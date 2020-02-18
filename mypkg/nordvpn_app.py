@@ -29,6 +29,16 @@ class Account(enum.auto):
     expiration = 'VPN Service'
 
 
+class Settings(enum.auto):
+    technology = 'Technology'
+    protocol = 'Protocol'
+    kill_switch = 'Kill Switch'
+    cybersec = 'CyberSec'
+    obfuscate = 'Obfuscate'
+    notify = 'Notify'
+    auto_connect = 'Auto-connect'
+
+
 def get_specific_info_from_output(output, info):
     lines = output.split('\n')
     for line in lines:
@@ -61,6 +71,7 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
         self.populate_server_status()
         self.populate_country_list()
         self.populate_server_list()
+        self.populate_settings()
 
         # buttons
         self.logout_button.clicked.connect(self.logout)
@@ -111,6 +122,33 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
             self.connected_server.setText(get_specific_info_from_output(status_output, Status.current_server))
             self.connection_color_status.setStyleSheet('background-color: rgb(78, 154, 6);')
         self.update_button_status()
+
+    def populate_settings(self):
+        settings_output = cli.get_settings()
+        self.checkBox_auto_connect.setChecked(
+            get_specific_info_from_output(settings_output, Settings.auto_connect) == 'Enabled')
+        self.checkBox_kill_switch.setChecked(
+            get_specific_info_from_output(settings_output, Settings.kill_switch) == 'Enabled')
+        self.checkBox_cybersec.setChecked(
+            get_specific_info_from_output(settings_output, Settings.cybersec) == 'Enabled')
+        self.checkBox_obfuscate.setChecked(
+            get_specific_info_from_output(settings_output, Settings.obfuscate) == 'Enabled')
+        self.checkBox_notify.setChecked(
+            get_specific_info_from_output(settings_output, Settings.notify) == 'Enabled')
+
+        if get_specific_info_from_output(settings_output, Settings.protocol) == 'UDP':
+            self.radioButton_udp.setChecked(True)
+            self.radioButton_tcp.setChecked(False)
+        else:
+            self.radioButton_udp.setChecked(False)
+            self.radioButton_tcp.setChecked(True)
+
+        if get_specific_info_from_output(settings_output, Settings.technology) == 'OpenVPN':
+            self.radioButton_open_vpn.setChecked(True)
+            self.radioButton_nord_lynx.setChecked(False)
+        else:
+            self.radioButton_open_vpn.setChecked(False)
+            self.radioButton_nord_lynx.setChecked(True)
 
     def logout(self):
         cli.logout()
