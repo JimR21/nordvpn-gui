@@ -10,6 +10,17 @@ class Commands(enum.auto):
     Connect = 'nordvpn connect '
     Disconnect = 'nordvpn disconnect'
     Settings = 'nordvpn settings'
+    Set = 'nordvpn set'
+
+
+class Options(enum.auto):
+    autoconnect = 'autoconnect'
+    cybersec = 'cybersec'
+    killswitch = 'killswitch'
+    notify = 'notify'
+    obfuscate = 'obfuscate'
+    protocol = 'protocol'
+    technology = 'technology'
 
 
 class LinuxCli(object):
@@ -44,11 +55,40 @@ class LinuxCli(object):
         output = self.run_command(Commands.Disconnect)
         return 'You are disconnected from NordVPN' in output
 
-    def run_command(self, command):
-        return os.popen(command).read()
-
     def get_settings(self):
         return self.run_command(Commands.Settings)
+
+    def set_auto_connect(self, argument):
+        return self.set(Options.autoconnect, argument)
+
+    def set_cybersec(self, argument):
+        return self.set(Options.cybersec, argument)
+
+    def set_killswitch(self, argument):
+        return self.set(Options.killswitch, argument)
+
+    def set_notify(self, argument):
+        return self.set(Options.notify, argument)
+
+    def set_obfuscate(self, argument):
+        return self.set(Options.obfuscate, argument)
+
+    def set_protocol(self, argument):
+        return self.set(Options.protocol, argument)
+
+    def set_technology(self, argument):
+        return self.set(Options.technology, argument)
+
+    def set(self, option, argument):
+        if argument:
+            argument = 'on'
+        if not argument:
+            argument = 'off'
+        output = self.run_command(Commands.Set + " " + option + " " + argument)
+        return 'successfully.' in output
+
+    def run_command(self, command):
+        return os.popen(command).read()
 
 
 # cli = LinuxCli()

@@ -24,23 +24,25 @@ class MainUi(object):
         self.countries_list.setGeometry(QtCore.QRect(10, 70, 231, 501))
         self.countries_list.setStyleSheet("background-color: rgb(237, 239, 241);\n"
                                           "                     selection-background-color: rgb(70, 135, 255);\n"
-                                          "                 ")
+                                          "                 \n"
+                                          "font: 57 14pt \"Ubuntu\";")
         self.countries_list.setObjectName("countries_list")
         self.server_list = QtWidgets.QListWidget(self.centralwidget)
         self.server_list.setGeometry(QtCore.QRect(240, 70, 731, 501))
         self.server_list.setStyleSheet("background-color: rgb(237, 239, 241);\n"
-                                       "               selection-background-color: rgb(70, 135, 255);\n"
-                                       "           ")
+                                       "font: 57 14pt \"Ubuntu\";\n"
+                                       "                     selection-background-color: rgb(70, 135, 255);\n"
+                                       "                 ")
         self.server_list.setObjectName("server_list")
         self.refresh_button = QtWidgets.QToolButton(self.centralwidget)
-        self.refresh_button.setGeometry(QtCore.QRect(920, 720, 41, 41))
+        self.refresh_button.setGeometry(QtCore.QRect(920, 630, 41, 41))
         self.refresh_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.refresh_button.setStyleSheet("background-color: rgb(237, 239, 241);\n"
                                           "      font: 57 15pt \"Ubuntu\";\n"
                                           "     ")
         self.refresh_button.setObjectName("refresh_button")
         self.connect_button = QtWidgets.QPushButton(self.centralwidget)
-        self.connect_button.setGeometry(QtCore.QRect(810, 720, 91, 41))
+        self.connect_button.setGeometry(QtCore.QRect(810, 630, 91, 41))
         self.connect_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.connect_button.setMouseTracking(False)
         self.connect_button.setStyleSheet("background-color: rgb(70, 135, 255);\n"
@@ -101,12 +103,12 @@ class MainUi(object):
         self.connected_server.setText("")
         self.connected_server.setObjectName("connected_server")
         self.disconnect_button = QtWidgets.QPushButton(self.centralwidget)
-        self.disconnect_button.setGeometry(QtCore.QRect(680, 720, 111, 41))
+        self.disconnect_button.setGeometry(QtCore.QRect(680, 630, 111, 41))
         self.disconnect_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.disconnect_button.setStyleSheet("background-color: rgb(237, 239, 241);\n"
-                                             "      font: 57 14pt \"Ubuntu\";\n"
-                                             "      color: rgb(191, 64, 64);\n"
-                                             "     ")
+                                             "               font: 57 14pt \"Ubuntu\";\n"
+                                             "               color: rgb(191, 64, 64);\n"
+                                             "           ")
         self.disconnect_button.setObjectName("disconnect_button")
         self.checkBox_auto_connect = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_auto_connect.setGeometry(QtCore.QRect(20, 590, 151, 23))
@@ -142,11 +144,6 @@ class MainUi(object):
         self.label_3.setGeometry(QtCore.QRect(210, 590, 81, 21))
         self.label_3.setStyleSheet("font: 13pt \"Ubuntu\";")
         self.label_3.setObjectName("label_3")
-        self.radioButton_tcp = QtWidgets.QRadioButton(self.centralwidget)
-        self.radioButton_tcp.setGeometry(QtCore.QRect(420, 590, 61, 23))
-        self.radioButton_tcp.setStyleSheet("font: 13pt \"Ubuntu\";")
-        self.radioButton_tcp.setAutoExclusive(False)
-        self.radioButton_tcp.setObjectName("radioButton_tcp")
         self.radioButton_open_vpn = QtWidgets.QRadioButton(self.centralwidget)
         self.radioButton_open_vpn.setGeometry(QtCore.QRect(310, 620, 101, 23))
         self.radioButton_open_vpn.setStyleSheet("font: 13pt \"Ubuntu\";")
@@ -161,6 +158,24 @@ class MainUi(object):
         self.radioButton_nord_lynx.setStyleSheet("font: 13pt \"Ubuntu\";")
         self.radioButton_nord_lynx.setAutoExclusive(False)
         self.radioButton_nord_lynx.setObjectName("radioButton_nord_lynx")
+        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_2.setGeometry(QtCore.QRect(10, 580, 521, 161))
+        self.frame_2.setStyleSheet("\n"
+                                   "")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.line = QtWidgets.QFrame(self.frame_2)
+        self.line.setGeometry(QtCore.QRect(153, 10, 20, 141))
+        self.line.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.radioButton_tcp = QtWidgets.QRadioButton(self.frame_2)
+        self.radioButton_tcp.setGeometry(QtCore.QRect(410, 10, 61, 23))
+        self.radioButton_tcp.setStyleSheet("font: 13pt \"Ubuntu\";")
+        self.radioButton_tcp.setAutoExclusive(False)
+        self.radioButton_tcp.setObjectName("radioButton_tcp")
+        self.frame_2.raise_()
         self.frame.raise_()
         self.countries_list.raise_()
         self.server_list.raise_()
@@ -174,7 +189,6 @@ class MainUi(object):
         self.checkBox_notify.raise_()
         self.radioButton_udp.raise_()
         self.label_3.raise_()
-        self.radioButton_tcp.raise_()
         self.radioButton_open_vpn.raise_()
         self.label_4.raise_()
         self.radioButton_nord_lynx.raise_()
@@ -198,22 +212,32 @@ class MainUi(object):
             self.expires_label.setText(_translate("MainWindow", "Expires on"))
             self.disconnect_button.setText(_translate("MainWindow", "Disconnect"))
             self.checkBox_auto_connect.setToolTip(_translate("MainWindow",
-                                                             "Enables or disables auto-connect. When enabled, this feature will automatically try to connect to VPN on operating system startup."))
+                                                             "Enables or disables auto-connect. When enabled, this feature will automatically try to connect\n"
+                                                             "                     to VPN on operating system startup.\n"
+                                                             "                 "))
             self.checkBox_auto_connect.setText(_translate("MainWindow", "Auto-connect"))
             self.checkBox_kill_switch.setToolTip(_translate("MainWindow",
-                                                            "Enables or disables Kill Switch. This security feature blocks your device from accessing the Internet outside the secure VPN tunnel, in case connection with a VPN server is lost."))
+                                                            "Enables or disables Kill Switch. This security feature blocks your device from accessing the\n"
+                                                            "                     Internet outside the secure VPN tunnel, in case connection with a VPN server is lost.\n"
+                                                            "                 "))
             self.checkBox_kill_switch.setText(_translate("MainWindow", "Kill Switch"))
             self.checkBox_cybersec.setToolTip(_translate("MainWindow",
-                                                         "Enables or disables CyberSec. When enabled, the CyberSec feature will automatically block suspicious websites so that no malware or other cyber threats can infect your device. Additionally, no flashy ads will come into your sight. More information on how it works: https://nordvpn.com/features/cybersec/."))
+                                                         "Enables or disables CyberSec. When enabled, the CyberSec feature will automatically block\n"
+                                                         "                     suspicious websites so that no malware or other cyber threats can infect your device. Additionally,\n"
+                                                         "                     no flashy ads will come into your sight. More information on how it works:\n"
+                                                         "                     https://nordvpn.com/features/cybersec/.\n"
+                                                         "                 "))
             self.checkBox_cybersec.setText(_translate("MainWindow", "CyberSec"))
             self.checkBox_obfuscate.setToolTip(_translate("MainWindow",
-                                                          "Enables or disables obfuscation. When enabled, this feature allows to bypass network traffic sensors which aim to detect usage of the protocol and log, throttle or block it."))
+                                                          "Enables or disables obfuscation. When enabled, this feature allows to bypass network traffic\n"
+                                                          "                     sensors which aim to detect usage of the protocol and log, throttle or block it.\n"
+                                                          "                 "))
             self.checkBox_obfuscate.setText(_translate("MainWindow", "Obfuscate"))
             self.checkBox_notify.setToolTip(_translate("MainWindow", "Enables or disables notifications"))
             self.checkBox_notify.setText(_translate("MainWindow", "Notify"))
             self.radioButton_udp.setText(_translate("MainWindow", "UDP"))
             self.label_3.setText(_translate("MainWindow", "Protocol"))
-            self.radioButton_tcp.setText(_translate("MainWindow", "TCP"))
             self.radioButton_open_vpn.setText(_translate("MainWindow", "OpenVPN"))
             self.label_4.setText(_translate("MainWindow", "Technology"))
             self.radioButton_nord_lynx.setText(_translate("MainWindow", "NordLynx"))
+            self.radioButton_tcp.setText(_translate("MainWindow", "TCP"))

@@ -37,6 +37,8 @@ class Settings(enum.auto):
     obfuscate = 'Obfuscate'
     notify = 'Notify'
     auto_connect = 'Auto-connect'
+    enabled = 'enabled'
+    disabled = 'disabled'
 
 
 def get_specific_info_from_output(output, info):
@@ -79,6 +81,13 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
         self.disconnect_button.clicked.connect(self.disconnect_from_server)
         self.refresh_button.clicked.connect(self.refresh)
         self.server_list.doubleClicked.connect(self.connect)
+
+        # options
+        self.checkBox_auto_connect.clicked.connect(self.toggle_autoconnect)
+        self.checkBox_cybersec.clicked.connect(self.toggle_cybersec)
+        self.checkBox_kill_switch.clicked.connect(self.toggle_killswitch)
+        self.checkBox_notify.clicked.connect(self.toggle_notify)
+        self.checkBox_obfuscate.clicked.connect(self.toggle_obfuscate)
 
     def populate_account_info(self):
         account_output = cli.get_account()
@@ -126,15 +135,15 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
     def populate_settings(self):
         settings_output = cli.get_settings()
         self.checkBox_auto_connect.setChecked(
-            get_specific_info_from_output(settings_output, Settings.auto_connect) == 'Enabled')
+            get_specific_info_from_output(settings_output, Settings.auto_connect) == Settings.enabled)
         self.checkBox_kill_switch.setChecked(
-            get_specific_info_from_output(settings_output, Settings.kill_switch) == 'Enabled')
+            get_specific_info_from_output(settings_output, Settings.kill_switch) == Settings.enabled)
         self.checkBox_cybersec.setChecked(
-            get_specific_info_from_output(settings_output, Settings.cybersec) == 'Enabled')
+            get_specific_info_from_output(settings_output, Settings.cybersec) == Settings.enabled)
         self.checkBox_obfuscate.setChecked(
-            get_specific_info_from_output(settings_output, Settings.obfuscate) == 'Enabled')
+            get_specific_info_from_output(settings_output, Settings.obfuscate) == Settings.enabled)
         self.checkBox_notify.setChecked(
-            get_specific_info_from_output(settings_output, Settings.notify) == 'Enabled')
+            get_specific_info_from_output(settings_output, Settings.notify) == Settings.enabled)
 
         if get_specific_info_from_output(settings_output, Settings.protocol) == 'UDP':
             self.radioButton_udp.setChecked(True)
@@ -149,6 +158,21 @@ class MainWindow(QtWidgets.QMainWindow, MainUi):
         else:
             self.radioButton_open_vpn.setChecked(False)
             self.radioButton_nord_lynx.setChecked(True)
+
+    def toggle_autoconnect(self):
+        cli.set_auto_connect(self.checkBox_auto_connect.isChecked())
+
+    def toggle_cybersec(self):
+        cli.set_cybersec(self.checkBox_cybersec.isChecked())
+
+    def toggle_notify(self):
+        cli.set_notify(self.checkBox_notify.isChecked())
+
+    def toggle_obfuscate(self):
+        cli.set_obfuscate(self.checkBox_obfuscate.isChecked())
+
+    def toggle_killswitch(self):
+        cli.set_killswitch(self.checkBox_kill_switch.isChecked())
 
     def logout(self):
         cli.logout()
