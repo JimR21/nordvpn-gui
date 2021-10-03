@@ -7,7 +7,7 @@ from mypkg.nord_api import NordApi
 
 @pytest.fixture
 def servers():
-    with open('test/test_data.json', 'r') as f:
+    with open('test_data.json', 'r') as f:
         return json.load(f)
 
 
